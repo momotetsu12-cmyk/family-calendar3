@@ -527,8 +527,7 @@ export default function Home() {
  {/* モーダル */}
 {modalVisible && (
   <div
-    onMouseDown={() => setModalVisible(false)}
-    onTouchStart={() => setModalVisible(false)}
+    onClick={() => setModalVisible(false)} // ← clickで統一
     style={{
       position: 'fixed',
       top: 0,
@@ -541,12 +540,10 @@ export default function Home() {
       alignItems: 'center',
       zIndex: 100,
       overflow: 'hidden',
-      touchAction: 'none', // ← スクロール誤反応防止
     }}
   >
     <div
-      onMouseDown={(e) => e.stopPropagation()}
-      onTouchStart={(e) => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()} // ← 内側クリックは止める
       style={{
         backgroundColor: 'white',
         borderRadius: 10,
@@ -592,6 +589,7 @@ export default function Home() {
     </div>
   </div>
 )}
+
     </div>
   );
 }
