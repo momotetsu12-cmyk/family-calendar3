@@ -524,70 +524,74 @@ export default function Home() {
         </tbody>
       </table>
 
-      {/* モーダル */}
-      {modalVisible && (
-        <div
-          onClick={() => setModalVisible(false)}
+ {/* モーダル */}
+{modalVisible && (
+  <div
+    onMouseDown={() => setModalVisible(false)}
+    onTouchStart={() => setModalVisible(false)}
+    style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'rgba(0,0,0,0.3)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 100,
+      overflow: 'hidden',
+      touchAction: 'none', // ← スクロール誤反応防止
+    }}
+  >
+    <div
+      onMouseDown={(e) => e.stopPropagation()}
+      onTouchStart={(e) => e.stopPropagation()}
+      style={{
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 20,
+        width: 300,
+        textAlign: 'center',
+        boxShadow: '0 0 8px rgba(0,0,0,0.25)',
+      }}
+    >
+      <h3>行先を選択</h3>
+      {destinations.map((dest) => (
+        <button
+          key={dest}
+          onClick={() => handleSelectDestination(dest)}
           style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: 'rgba(0,0,0,0.3)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 100,
+            width: '100%',
+            padding: '10px 0',
+            border: 'none',
+            borderBottom: '1px solid #eee',
+            backgroundColor: 'white',
+            cursor: 'pointer',
           }}
         >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: 'white',
-              borderRadius: 10,
-              padding: 20,
-              width: 300,
-              textAlign: 'center',
-              boxShadow: '0 0 8px rgba(0,0,0,0.25)',
-            }}
-          >
-            <h3>行先を選択</h3>
-            {destinations.map((dest) => (
-              <button
-                key={dest}
-                onClick={() => handleSelectDestination(dest)}
-                style={{
-                  width: '100%',
-                  padding: '10px 0',
-                  border: 'none',
-                  borderBottom: '1px solid #eee',
-                  backgroundColor: 'white',
-                  cursor: 'pointer',
-                }}
-              >
-                {dest}
-              </button>
-            ))}
-            <button
-              onClick={handleDeletePlan}
-              style={{
-                marginTop: 12,
-                backgroundColor: '#f44',
-                color: 'white',
-                border: 'none',
-                padding: '8px 14px',
-                borderRadius: 6,
-                fontWeight: '700',
-                cursor: 'pointer',
-                width: '100%',
-              }}
-            >
-              この予定を削除
-            </button>
-          </div>
-        </div>
-      )}
+          {dest}
+        </button>
+      ))}
+      <button
+        onClick={handleDeletePlan}
+        style={{
+          marginTop: 12,
+          backgroundColor: '#f44',
+          color: 'white',
+          border: 'none',
+          padding: '8px 14px',
+          borderRadius: 6,
+          fontWeight: '700',
+          cursor: 'pointer',
+          width: '100%',
+        }}
+      >
+        この予定を削除
+      </button>
+    </div>
+  </div>
+)}
     </div>
   );
 }
